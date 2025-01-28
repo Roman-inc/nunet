@@ -16,7 +16,7 @@ outputs = np.array([[0], [1], [1], [0]])
 weights0 = 2 * np.random.random((2, 3)) - 1
 weights1 = 2 * np.random.random((3, 1)) - 1
 
-epochs = 100000
+epochs = 1000000
 learning_rate = 0.6
 error = []
 
@@ -30,8 +30,8 @@ for epoch in range(epochs):
 
     error_output_layer = outputs - output_layer
     average = np.mean(abs(error_output_layer))
-    if epoch % 10000 == 0:
-        print('Epoch: ' + str(epoch + 1) + ' Error: ' + str(average))
+    if epoch % 1000 == 0:
+        print(f'Epoch: {str(epoch + 1)} Error: {str(average)}')
         error.append(average)
 
     derivative_output = sigmoid_derivative(output_layer)
@@ -50,6 +50,7 @@ for epoch in range(epochs):
     weights0 = weights0 + (input_x_delta0 * learning_rate)
 
 
+plt.title("Error chart")
 plt.xlabel('Epochs')
 plt.ylabel('Error')
 plt.plot(error)
@@ -62,7 +63,7 @@ def calculate_output(instance):
 
 
 for i in range(len(inputs)):
-    print(calculate_output(inputs[i]))
+    print(f'for input {inputs[i]} value is: {round(calculate_output(inputs[i]))}')
 
 
 plt.show()
