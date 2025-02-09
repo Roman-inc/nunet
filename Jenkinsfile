@@ -8,8 +8,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh '''chmod +x setup.sh
-                      ./setup.sh
+                sh '''
+                      python -m venv .venv
+                      . .venv/bin/activate
                       pip install -r requirements.txt
                       pyinstaller --onefile ${params.onefile}.py'''
             }
