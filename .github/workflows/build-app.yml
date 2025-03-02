@@ -9,8 +9,11 @@ on:
     
 jobs:
   build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
@@ -31,11 +34,15 @@ jobs:
 
     - name: Verify app
       run: |
-        ls -la dist
+        if [[ "$RUNNER_OS" == "Windows" ]]; then
+          dir dist
+        else
+          ls -la dist
+        fi
 
     - name: Upload app to artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ github.event.inputs.onefile }}
+        name: ${{ github.event.inputs.onefile }}-${{ matrix.os }}
         path: dist/
    
