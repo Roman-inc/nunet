@@ -8,7 +8,18 @@ on:
         default: mlLevel
     
 jobs:
+  setup-params:
+    runs-on: ubuntu-latest
+    outputs:
+      name: ${{ steps.params.outputs.onefile }}
+    steps:
+    - name: Set up parameters
+      id: params
+      run: |
+        echo "name=${{ github.event.inputs.onefile }}" >> $GITHUB_OUTPUT
+
   build:
+    needs: setup-params
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -29,11 +40,11 @@ jobs:
 
     - name: Build app
       run: |
-        pyinstaller --onefile ${{ github.event.inputs.onefile }}.py
+        pyinstaller --onefile ${{ needs.setup-params.outputs.name }}.py
 
     - name: Upload app to artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ github.event.inputs.onefile }}-${{ matrix.os }}
+        name: ${{ needs.setup-params.outputs.name }}-${{ matrix.os }}
         path: dist/
    
