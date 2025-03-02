@@ -11,7 +11,7 @@ jobs:
   setup-params:
     runs-on: ubuntu-latest
     outputs:
-      name: ${{ steps.params.outputs.onefile }}
+      onefile: ${{ steps.params.outputs.onefile }}
     steps:
     - name: Set up parameters
       id: params
@@ -40,11 +40,11 @@ jobs:
 
     - name: Build app
       run: |
-        pyinstaller --onefile ${{ needs.setup-params.outputs.name }}.py
+        pyinstaller --onefile ${{ needs.setup-params.outputs.onefile }}.py
 
     - name: Upload app to artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.setup-params.outputs.name }}-${{ matrix.os }}
+        name: ${{ needs.setup-params.outputs.onefile }}-${{ matrix.os }}
         path: dist/
    
