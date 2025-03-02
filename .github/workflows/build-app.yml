@@ -31,14 +31,6 @@ jobs:
       run: |
         pyinstaller --onefile ${{ github.event.inputs.onefile }}.py
 
-    - name: Verify app
-      run: |
-        if [[ "$RUNNER_OS" == "Windows" ]]; then
-          dir dist
-        else
-          ls -la dist
-        fi
-
     - name: Upload app to artifacts
       uses: actions/upload-artifact@v4
       with:
