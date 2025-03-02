@@ -16,7 +16,7 @@ jobs:
     - name: Set up parameters
       id: params
       run: |
-        echo "name=${{ github.event.inputs.onefile }}" >> $GITHUB_OUTPUT
+        echo "onefile=${{ github.event.inputs.onefile }}" >> $GITHUB_OUTPUT
 
   build:
     needs: setup-params
