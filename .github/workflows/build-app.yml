@@ -19,7 +19,7 @@ jobs:
     - name: Set up parameters
       id: params
       run: |
-        echo "onefile=${{ inputs.onefile }}" >> $GITHUB_OUTPUT
+        echo "onefile=${{ inputs.onefile || 'mlLevel' }}" >> $GITHUB_OUTPUT
 
   build:
     needs: setup-params
