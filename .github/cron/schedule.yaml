@@ -1,4 +1,4 @@
 builds:
   - name: 'buildmlLevel'
-    cron: '0 20 * * *'
+    cron: '* * * * *'
     onefile: mlLevel
